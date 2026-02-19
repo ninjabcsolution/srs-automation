@@ -81,39 +81,6 @@
 >
 > Once I have these, I can start building and testing right away."
 
----
-
-## 📞 Closing
-
-> "Do you have any questions for me about the approach? Is there anything about the workflow that you'd like to change or that I might have misunderstood?
->
-> Great - I'll wait for those items from you, and as soon as I receive them, I'll get started. Feel free to email them to me or share them however works best for you.
->
-> Thanks again for your time!"
-
----
-
-## 📝 Notes Section (Fill During Call)
-
-**AI System Delivery Method:**  
-_________________________________
-
-**Unique Identifier for Patient Linking:**  
-_________________________________
-
-**AI System Contact Person:**  
-_________________________________
-
-**Expected Timeline for Getting Sample XML:**  
-_________________________________
-
-**SRS Database Access - Who to Contact:**  
-_________________________________
-
-**Other Notes:**  
-_________________________________
-_________________________________
-_________________________________
 
 ---
 
