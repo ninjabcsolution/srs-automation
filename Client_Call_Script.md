@@ -4,7 +4,7 @@
 
 ## 📞 Opening
 
-> "Hi [Client Name], thank you for making time for this call. I've reviewed the architecture diagram you provided and have a good understanding of what we're trying to accomplish. I've also checked out the SRS application.
+> "Hi Cheris Craig, thank you for making time for this call. I've reviewed the architecture diagram you provided and have a good understanding of what we're trying to accomplish. I've also checked out the SRS application.
 >
 > I wanted to walk you through my understanding of the workflow and then ask a few questions about the AI system so I can move forward with implementation."
 
