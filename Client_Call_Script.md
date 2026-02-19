@@ -1,6 +1,4 @@
 # Client Call Script - Voice Call Preparation
-**Date:** _______________  
-**Attendees:** _______________
 
 ---
 
