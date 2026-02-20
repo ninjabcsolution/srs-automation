@@ -22,7 +22,14 @@
 
 ## 🛠️ Technology We Need (Simple)
 
-> "The good news is the database is already set up. I just need to build a small program to watch for XML files and process them, update the Word template to connect to both databases, and set up a cleanup job. The only thing I need from you is read access to the SRS database."
+> "The database is already set up. Here's the tech stack I'll use:
+>
+> - **.NET Windows Service** - to watch for XML files and process them
+> - **Python** - for data processing and automation
+> - **VBA Macros** - in the Word template for data population
+> - **Office Open XML SDK** - for programmatic document generation
+>
+> The only thing I need from you is read access to the SRS database."
 
 ---
 

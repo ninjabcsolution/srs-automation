@@ -69,44 +69,16 @@ Based on the architecture diagram, here's the complete data flow:
 
 ---
 
-## 🔧 Required Technologies
+## 🔧 Tech Stack (Selected)
 
-### 1. **Database Layer**
-- ✅ **SQL Server Express 2025** - Already installed on UGA-JOBS-01
-- ✅ **Database**: VisceraIntegrationDB (created)
-- 📝 **Needed**: Database schema design for staging tables
-
-### 2. **Job Server / Windows Services**
-- **Technology Options**:
-  - Windows Task Scheduler with PowerShell scripts
-  - SQL Server Agent Jobs (if available)
-  - .NET Windows Service application
-  - Node.js with PM2 or Windows Service wrapper
-- **Functions Needed**:
-  - File watcher for XML ingestion
-  - XML parser and data extractor
-  - Data cleanup scheduled task
-
-### 3. **XML Processing**
-- **Technology Options**:
-  - PowerShell with `[xml]` type
-  - C#/.NET with `System.Xml` or LINQ to XML
-  - Python with `lxml` or `xml.etree`
-- 📝 **Needed**: Sample XML file structure from AI system
-
-### 4. **Word Document Integration**
-- **Technologies**:
-  - Microsoft Word with mail merge / Content Controls
-  - Custom XML parts in Word documents
-  - VBA Macros for data population
-  - Office Open XML SDK for programmatic document generation
-- 📝 **Needed**: Understanding of current EMR-to-Word process
-
-### 5. **File Transfer**
-- **Options**:
-  - Shared network folder (SMB)
-  - FTP/SFTP server
-  - Direct API integration (if AI system supports it)
+| Component | Technology | Purpose |
+|-----------|------------|---------|
+| **Database** | SQL Server Express 2025 | ✅ Already installed on UGA-JOBS-01 (VisceraIntegrationDB) |
+| **Job Server / File Watcher** | .NET Windows Service | Watch for XML files, parse data, write to staging DB |
+| **Data Processing & Automation** | Python | XML parsing, data transformation, automation scripts |
+| **Word Template** | VBA Macros | Data population and template logic |
+| **Document Generation** | Office Open XML SDK | Programmatic Word document generation |
+| **File Transfer** | Shared folder or FTP | Landing zone for incoming XML files |
 
 ---
 
