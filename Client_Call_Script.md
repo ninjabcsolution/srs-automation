@@ -10,186 +10,40 @@
 
 ---
 
-## 🔄 How The System Will Work (Simple Explanation)
+## 🔄 Workflow (Simple)
 
-> "Let me walk you through how this whole thing works, step by step, in plain English:
+> "Here's how it works in a nutshell:
 >
-> **Imagine it like a relay race with the data being passed from one runner to the next.**
+> The AI system generates clinical notes and saves them as XML files. Our job server picks up those files, reads the data, and stores it in a staging database. When a clinician generates a Word document, the template pulls patient info from the SRS database AND the AI narrative from our staging database - merging them into one final document. Then we clean up old data automatically.
 >
-> ---
->
-> **First, the AI does its job.**  
-> The VisceraChart AI system listens to patient visits and writes up clinical notes - things like what the patient came in for, the chief complaint, and a narrative summary. Once it's done, it saves all of that into an XML file. Think of XML as just a structured text file that computers can easily read.
->
-> ---
->
-> **Next, we catch that file.**  
-> That XML file gets dropped into a folder - like putting a letter in a mailbox. On our end, we have a little program running on the UGA-JOBS-01 server that's constantly watching that folder. The moment a new file shows up, it grabs it.
->
-> ---
->
-> **Then, we read and store the data.**  
-> Our program opens up that XML file, reads through it, and pulls out all the important pieces - the patient ID, the narrative, the chief complaint, whatever's in there. Then it saves that information into a temporary database. We already have this database set up - it's called VisceraIntegrationDB on the UGA-JOBS-01 server.
->
-> ---
->
-> **Now comes the magic - generating the Word document.**  
-> When a clinician is in the EMR app and opens a patient's chart, they can generate a Word document. Here's what happens behind the scenes:
->
-> - The Word template reaches out to TWO databases
-> - First, it grabs patient demographics and visit information from your main SRS database - things like name, date of birth, address, visit date
-> - Second, it grabs the AI-generated narrative from our staging database - the clinical notes the AI wrote
-> - The template merges both together and creates one complete document
->
-> So the final document has BOTH the structured EMR data AND the AI-written narrative, all in one place.
->
-> ---
->
-> **Finally, we clean up.**  
-> After the document is generated and we don't need the AI data anymore, a cleanup job removes the old records from the staging database. This keeps things tidy and makes sure we're not storing patient data longer than necessary.
->
-> ---
->
-> **Does that make sense? Is that how you envisioned it working?**"
+> That's it - AI creates data, we catch it, store it, and merge it with your EMR data into Word documents."
 
 ---
 
-## 🛠️ What Technology We Need (In Plain English)
+## 🛠️ Technology We Need (Simple)
 
-> "Now let me explain what technology pieces we need to make this work. Don't worry, I'll keep it simple:
+> "For technology, here's what we need:
 >
-> ---
->
-> **1. A Database to Store the AI Data**  
-> ✅ Good news - this is already done! We have SQL Server Express installed on UGA-JOBS-01, and the database called VisceraIntegrationDB is already created. This is where we'll temporarily store the AI-generated content until it gets used.
->
-> ---
->
-> **2. A File Watcher Program**  
-> We need a small program that runs in the background and watches a folder for new XML files. When a file appears, it processes it automatically. I can build this using:
-> - PowerShell scripts (simple and works great on Windows servers)
-> - Or a small Windows service application
->
-> This will run on UGA-JOBS-01 since that's where the database is.
->
-> ---
->
-> **3. An XML Parser**  
-> This is the piece that reads the XML file and extracts the data. It's part of the file watcher - once we grab the file, we need to understand what's inside. I can build this once I see a sample XML file from the AI system.
->
-> ---
->
-> **4. Database Connection to SRS**  
-> To generate the final Word document, we need to read from TWO databases:
-> - The staging database on UGA-JOBS-01 (already have access)
-> - The main SRS database on SRS-SQL-01 (need access to this one)
->
-> So I'll need read access to the SRS database to query patient and visit information.
->
-> ---
->
-> **5. Word Document Template with Two Data Sources**  
-> The Word template needs to be set up to pull data from two places. This might involve:
-> - Custom XML parts in Word
-> - Or some VBA macros
-> - Or modifying how the template connects to databases
->
-> I'll need to see the current template to understand how it works today, then I can add the second data source.
->
-> ---
->
-> **6. A Cleanup Scheduler**  
-> A simple scheduled task that runs periodically (maybe once a day or once a week) and removes old records from the staging database. This is straightforward - just a scheduled job on the server.
->
-> ---
->
-> **In summary, the main technology pieces are:**
-> - ✅ SQL Server Express database (already set up)
-> - 📝 File watcher / XML parser (I'll build this)
-> - 📝 Word template modification (need to see current template)
-> - 📝 Cleanup scheduler (simple to set up)
-> - ❓ Access to SRS database (need from you)
->
-> **Does this technology list make sense to you?**"
+> - ✅ **SQL Server database** - Already set up on UGA-JOBS-01
+> - 📝 **File watcher & XML parser** - A program to watch for new files and read the data (I'll build this using PowerShell or a Windows service)
+> - 📝 **Word template update** - Modify the template to pull data from both databases
+> - 📝 **Cleanup scheduler** - A scheduled job to remove old data
+> - ❓ **SRS database access** - I need read access to SRS-SQL-01 to query patient info"
 
 ---
 
-## 📋 Implementation Steps (What We'll Do and When)
+## 📋 Implementation Steps (Simple)
 
-> "Let me walk you through how I plan to build this, step by step:
+> "Here's how I'll build this:
 >
-> ---
+> 1. **First, I need from you:** Sample XML file, AI system access, SRS database access, and the Word template
+> 2. **Then I'll set up the database tables** to store the AI data
+> 3. **Build the file watcher** that picks up and processes XML files
+> 4. **Update the Word template** to pull from both databases
+> 5. **Set up the cleanup job** to remove old data
+> 6. **Test everything end-to-end** before going live
 >
-> **Phase 1: Getting Everything I Need** *(This is where you come in)*
->
-> Before I can start building, I need a few things from you:
-> - A sample XML file from the AI system so I can see the structure
-> - Access to the AI system or documentation about it
-> - Database access to SRS-SQL-01 so I can query patient data
-> - The current Word template you're using
->
-> Once I have these, I can start building right away.
->
-> ---
->
-> **Phase 2: Setting Up the Database Tables**
->
-> First thing I'll do is design the database tables in our staging database. These tables will hold the AI-generated data - things like:
-> - Patient identifier (so we can match it to SRS)
-> - Chief complaint
-> - Narrative text
-> - Timestamps for when the data came in
->
-> This is quick work - probably a day or two once I see the XML structure.
->
-> ---
->
-> **Phase 3: Building the File Watcher and Parser**
->
-> Next, I'll create the program that:
-> - Watches the folder where XML files land
-> - Picks up new files automatically
-> - Reads the XML and extracts the data
-> - Saves it to the staging database
-> - Moves or archives the processed file
->
-> I'll test this thoroughly with sample files to make sure it handles everything correctly.
->
-> ---
->
-> **Phase 4: Connecting the Word Template**
->
-> This is the integration part. I'll:
-> - Look at your current Word template and understand how it works
-> - Add a second data connection to our staging database
-> - Map the AI-generated fields to places in the document
-> - Test to make sure both data sources populate correctly
->
-> ---
->
-> **Phase 5: Setting Up the Cleanup Job**
->
-> I'll create a scheduled task that:
-> - Runs on a schedule (daily, weekly - whatever makes sense)
-> - Removes old records from the staging database
-> - Maybe keeps a log of what was cleaned up
->
-> ---
->
-> **Phase 6: Testing Everything End-to-End**
->
-> Finally, we'll test the whole flow:
-> - Drop a test XML file in the folder
-> - Watch it get processed
-> - Open a patient chart in the EMR
-> - Generate a Word document
-> - Verify all the data shows up correctly
->
-> Once we're confident it works, we can go live.
->
-> ---
->
-> **How does that timeline sound? Is there anything you'd want me to prioritize?**"
+> Once I have what I need from you, I can start right away."
 
 ---
 
