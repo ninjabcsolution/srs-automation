@@ -22,28 +22,13 @@
 
 ## 🛠️ Technology We Need (Simple)
 
-> "For technology, here's what we need:
->
-> - ✅ **SQL Server database** - Already set up on UGA-JOBS-01
-> - 📝 **File watcher & XML parser** - A program to watch for new files and read the data (I'll build this using PowerShell or a Windows service)
-> - 📝 **Word template update** - Modify the template to pull data from both databases
-> - 📝 **Cleanup scheduler** - A scheduled job to remove old data
-> - ❓ **SRS database access** - I need read access to SRS-SQL-01 to query patient info"
+> "The good news is the database is already set up. I just need to build a small program to watch for XML files and process them, update the Word template to connect to both databases, and set up a cleanup job. The only thing I need from you is read access to the SRS database."
 
 ---
 
 ## 📋 Implementation Steps (Simple)
 
-> "Here's how I'll build this:
->
-> 1. **First, I need from you:** Sample XML file, AI system access, SRS database access, and the Word template
-> 2. **Then I'll set up the database tables** to store the AI data
-> 3. **Build the file watcher** that picks up and processes XML files
-> 4. **Update the Word template** to pull from both databases
-> 5. **Set up the cleanup job** to remove old data
-> 6. **Test everything end-to-end** before going live
->
-> Once I have what I need from you, I can start right away."
+> "Once I get the sample XML and database access from you, I'll design the database tables, build the file watcher and parser, update the Word template, and set up the cleanup job. Then we'll test everything end-to-end before going live. It's straightforward once I have the pieces."
 
 ---
 
@@ -67,28 +52,13 @@
 
 ## 🔐 What I Need - SQL Server Access
 
-> "One more thing - to complete this integration and generate the final Word documents, I'll need access to query the SRS database on SRS-SQL-01. 
->
-> The Word document needs to pull data from two places:
-> 1. The **staging database** on UGA-JOBS-01 - I already have credentials for that
-> 2. The **main SRS database** on SRS-SQL-01 - I'll need read access to the patient and visit tables
->
-> Can you set up a read-only database account for me on SRS-SQL-01? I'll need to be able to query patient demographics, visit information, and any other fields that currently go into the Word document."
+> "I already have access to the staging database on UGA-JOBS-01. But to generate the final Word documents, I'll also need read access to the SRS database on SRS-SQL-01 to query patient demographics and visit info. Can you set that up for me?"
 
 ---
 
 ## 📋 Summary of What I Need from You
 
-> "To summarize, here's what would help me move forward quickly:
->
-> 1. **Sample XML file** from the AI system
-> 2. **Information on how XML files are delivered** (folder path, FTP credentials, or API details)
-> 3. **The unique identifier** that links AI data to SRS patients
-> 4. **Access to AI system** or its documentation
-> 5. **Read access to SRS-SQL-01** database for patient/visit data
-> 6. **Current Word template** if you have it handy
->
-> Once I have these, I can start building and testing right away."
+> "To summarize, I need: a sample XML file from the AI system, information on how the XML files get delivered, access to the AI system or its documentation, read access to the SRS database, and the current Word template. Once I have these, I can start right away."
 
 ---
 
